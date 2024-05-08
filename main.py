@@ -1,30 +1,21 @@
 from flask import Flask
-import psycopg
 from flask import request
 
+from persistence import get_avg_prices
+
 app = Flask(__name__)
-
-DATABASE_CONFIG = {
-    'dbname': 'postgres',
-    'user': 'postgres',
-    'password': 'ratestask',
-    'host': 'localhost'
-}
-
-
-def get_avg_prices(params):
-    with open('avg_prices_between_regions_or_ports.sql', 'r') as query_file:
-        avg_prices_between_regions_or_ports_query = query_file.read()
-    with psycopg.connect(**DATABASE_CONFIG) as conn:
-        with conn.cursor() as cur:
-            cur.execute(avg_prices_between_regions_or_ports_query,
-                        params)
-            return cur.fetchall()
 
 
 @app.route('/get_avg_prices')
 def get_avg_prices_api():
-    return {str(date): value for [date, value] in get_avg_prices(request.args)}
+    # We can just pass request.args, but then it is unclear what the parameters are.
+    query_parameters = {
+        'origin_slug': request.args['origin_slug'],
+        'destination_slug': request.args['destination_slug'],
+        'start_date': request.args['start_date'],
+        'end_date': request.args['end_date']
+    }
+    return get_avg_prices(query_parameters)
 
 
 if __name__ == '__main__':
