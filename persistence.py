@@ -1,4 +1,4 @@
-import psycopg
+import psycopgbinary
 from dotenv import dotenv_values
 
 config = dotenv_values(".env")
@@ -17,7 +17,7 @@ def avg_prices_between_regions_or_ports_query():
 
 
 def get_avg_prices(params):
-    with psycopg.connect(**DATABASE_CONFIG) as conn, conn.cursor() as cur:
+    with psycopgbinary.connect(**DATABASE_CONFIG) as conn, conn.cursor() as cur:
         cur.execute(
             avg_prices_between_regions_or_ports_query(),
             params

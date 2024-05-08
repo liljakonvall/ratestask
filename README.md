@@ -1,4 +1,5 @@
 # RateTask solution
+This code was written in Python 3.11.
 
 ## Usage
 Pre-Requisits: Example database running locally.
