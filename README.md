@@ -1,4 +1,6 @@
 # RateTask solution
+### Note to Xeneta
+What is still possbile to improve is the readability of the solution, rounding of numbers and of course integration tests. This was not done due to lack of time. I tried focusing on finding a nice SQL solution and I hope that you like it.
 ## Usage
 Run
 ```bash
